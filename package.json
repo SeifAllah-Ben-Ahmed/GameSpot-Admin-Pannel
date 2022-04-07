@@ -4,9 +4,9 @@
   "description": "Mern Stack E-commerce",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "start:dev": "nodemon server.js",
-    "start:prod": "SET NODE_ENV=production& nodemon server.js"
+    "start": "node index.js",
+    "start:dev": "nodemon index.js",
+    "start:prod": "SET NODE_ENV=production& nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -26,7 +26,8 @@
   "dependencies": {
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
-    "mongoose": "^6.2.8"
+    "mongoose": "^6.2.8",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "eslint": "^8.12.0",
