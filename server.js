@@ -1,10 +1,12 @@
 require('dotenv').config({ path: './config.env' });
 const express = require('express');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 
+const connectDB = require('./config/connectDB');
+const userRouter = require('./routes/userRoutes');
 const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/AppError');
-const connectDB = require('./config/connectDB');
 
 const app = express();
 
@@ -21,15 +23,27 @@ app.listen(port, (err) => {
   if (err) return console.log(err, '💥💥');
   console.log(`App running on port ${port}... 🚀🚀`);
 });
-// ROUTE HANDLERS
+
+// 1) MIDDLEWARES
+//Body & Cookie parser, reading data from body
+app.use(express.json());
+app.use(cookieParser());
+
+// 2) ROUTE HANDLERS
 
 app.get('/', (req, res) => {
   res.status(200).end();
 });
+app.use('/api/users', userRouter);
 
 // Handle 404 not found routes
 app.all('*', (req, res, next) => {
-  next(new AppError(`Cant find ${req.originalUrl} on thus server!`, 404));
+  next(
+    new AppError(
+      `Cant find this route ('${req.originalUrl}') on thus server!`,
+      404
+    )
+  );
 });
 
 app.use(globalErrorHandler);
