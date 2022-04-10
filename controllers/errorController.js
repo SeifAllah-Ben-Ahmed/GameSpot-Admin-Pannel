@@ -32,7 +32,7 @@ const sendErrorProd = (err, req, res) => {
   }
   // Programming or other unknown error : don't leak eroor details
   // 1) Log error
-  console.error('Error', err);
+  console.error('Error💥', err);
   // 2) Send generic message
   return res.status(500).json({
     status: 'error',
