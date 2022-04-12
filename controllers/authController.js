@@ -175,3 +175,11 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 
   createSendToken(user, 200, res);
 });
+
+exports.logout = catchAsync(async (req, res, next) => {
+  res.clearCookie('token');
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+});
