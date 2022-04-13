@@ -41,6 +41,10 @@ const userSchema = mongoose.Schema({
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
+  photo: {
+    type: String,
+    default: 'default.jpg',
+  },
 });
 userSchema.pre('save', async function (next) {
   // Only run this function if password is changed or New

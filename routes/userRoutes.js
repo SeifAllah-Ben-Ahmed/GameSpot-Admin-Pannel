@@ -1,6 +1,7 @@
 const express = require('express');
 
 const authController = require('../controllers/authController');
+const userController = require('../controllers/userController');
 
 const router = express.Router();
 
@@ -11,22 +12,32 @@ router.get('/logout', authController.logout);
 router.post('/forgotPassword', authController.forgotPassword);
 router.patch('/resetPassword/:token', authController.resetPassword);
 
-router.patch(
-  '/updatePassword',
-  authController.protect,
-  authController.updatePassword
-);
+// Protect all routes
+router.use(authController.protect);
 
-router.get('/isprotected', authController.protect, async (req, res) => {
-  res.status(200).send('you are logged in');
-});
-router.get(
-  '/isadmin',
-  authController.protect,
-  authController.restrictTo('admin'),
-  async (req, res) => {
-    res.status(200).send('you are logged in admin');
-  }
-);
+// me router
+router.patch('/updatePassword', authController.updatePassword);
+
+router
+  .route('/me')
+  .get(userController.getMe, userController.getUser)
+  .delete(userController.getMe, userController.deleteUser)
+  .patch(
+    userController.uploadPhoto,
+    userController.resizePhoto,
+    userController.updateMe
+  );
+
+router.use(authController.restrictTo('admin'));
+
+router
+  .route('/')
+  .get(userController.getAllUsers)
+  .post(userController.createUser);
+
+router
+  .route('/:id')
+  .get(userController.getUser)
+  .delete(userController.deleteUser);
 
 module.exports = router;
