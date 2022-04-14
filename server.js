@@ -4,7 +4,8 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 
 const connectDB = require('./config/connectDB');
-const userRouter = require('./routes/userRoutes');
+const userRoutes = require('./routes/userRoutes');
+const productRoutes = require('./routes/productRoutes');
 const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/AppError');
 
@@ -34,7 +35,8 @@ app.use(cookieParser());
 app.get('/', (req, res) => {
   res.status(200).end();
 });
-app.use('/api/users', userRouter);
+app.use('/api/users', userRoutes);
+app.use('/api/products', productRoutes);
 
 // Handle 404 not found routes
 app.all('*', (req, res, next) => {
@@ -47,4 +49,3 @@ app.all('*', (req, res, next) => {
 });
 
 app.use(globalErrorHandler);
-module.exports = app;
