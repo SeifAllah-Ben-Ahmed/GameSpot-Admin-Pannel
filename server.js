@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const connectDB = require('./config/connectDB');
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/AppError');
 
@@ -37,6 +38,7 @@ app.get('/', (req, res) => {
 });
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
 
 // Handle 404 not found routes
 app.all('*', (req, res, next) => {
