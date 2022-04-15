@@ -1,5 +1,11 @@
 require('dotenv').config({ path: './config.env' });
 const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const mongoSanitier = require('express-mongo-sanitize');
+const xss = require('xss-clean');
+const compression = require('compression');
+const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 
@@ -11,6 +17,7 @@ const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/AppError');
 
 const app = express();
+app.enable('trust proxy');
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -30,6 +37,30 @@ app.listen(port, (err) => {
 //Body & Cookie parser, reading data from body
 app.use(express.json());
 app.use(cookieParser());
+
+// Security
+//Cors
+app.use(cors());
+// Data sanitization against NoSQL query  injection
+app.use(mongoSanitier());
+
+// Set security HTTP headers
+app.use(helmet());
+
+// Limite request
+app.use(
+  '/api',
+  rateLimit({
+    max: 60,
+    windowMs: 15 * 60 * 1000,
+    message: 'Too many requests from this IP, please try again in 15 minutes!',
+  })
+);
+
+// Data sanitization against XXS
+app.use(xss());
+
+app.use(compression());
 
 // 2) ROUTE HANDLERS
 
