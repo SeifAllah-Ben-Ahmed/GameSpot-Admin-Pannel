@@ -1,15 +1,18 @@
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import 'react-circular-progressbar/dist/styles.css';
-import './style/style.scss';
-import { DarkModeContextProvider } from './context/darkModeReducer';
+import StoreProvider from './redux';
+import theme from './theme';
 
 ReactDOM.render(
   <React.StrictMode>
-    <DarkModeContextProvider>
-      <App />
-    </DarkModeContextProvider>
+    <StoreProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
+    </StoreProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

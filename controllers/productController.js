@@ -34,7 +34,7 @@ exports.resizeProductImages = catchAsync(async (req, res, next) => {
   // if (!req.files.imageCover || !req.files.images) return next();
 
   // 1) imageCover
-  if (req.files.imageCover) {
+  if (req.files && req.files.imageCover) {
     req.body.imageCover = `product-${req.body.name}-default.jpeg`;
 
     await sharp(req.files.imageCover[0].buffer)
@@ -44,7 +44,7 @@ exports.resizeProductImages = catchAsync(async (req, res, next) => {
       .toFile(`images/products/${req.body.imageCover}`);
   }
   // 2) images
-  if (req.files.images) {
+  if (req.files && req.files.images) {
     req.body.images = [];
 
     await Promise.all(
@@ -66,6 +66,7 @@ exports.resizeProductImages = catchAsync(async (req, res, next) => {
 });
 
 exports.createProduct = catchAsync(async (req, res, next) => {
+  console.log(req.body);
   const product = await Product.create(req.body);
 
   res.status(201).json({

@@ -71,6 +71,25 @@ const productSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    attributes: [
+      {
+        key: {
+          type: String,
+          required: [true, 'Key can not be empty!'],
+          unique: [true, 'Attribute key most be unique!'],
+          trim: true,
+          lowercase: true,
+        },
+
+        value: {
+          type: String,
+          required: [true, 'value can not be empty!'],
+          unique: [true, 'Attribute key most be unique!'],
+          trim: true,
+          lowercase: true,
+        },
+      },
+    ],
   },
   {
     // Options

@@ -13,6 +13,7 @@ const connectDB = require('./config/connectDB');
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const attributeRoutes = require('./routes/attributeRoutes');
 const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/AppError');
 
@@ -70,6 +71,7 @@ app.get('/', (req, res) => {
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/attributes', attributeRoutes);
 
 // Handle 404 not found routes
 app.all('*', (req, res, next) => {

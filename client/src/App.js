@@ -1,48 +1,24 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { productInputs, userInputs } from './formSource';
-import Home from './pages/home';
-import Login from './pages/login';
-import Single from './pages/single';
-import New from './pages/new';
-import List from './pages/list';
-import { useContext } from 'react';
-import { DarkModeContext } from './context/darkModeReducer';
+import Layout from './components/Layout';
+import Home from './pages/Home';
+import Media from './pages/Media';
 
 function App() {
-  const { darkMode } = useContext(DarkModeContext);
-  console.log(darkMode);
   return (
-    <div className={darkMode ? 'app dark' : 'app'}>
-      <BrowserRouter>
+    <BrowserRouter>
+      <Layout>
         <Routes>
           <Route path="/">
+            {/* <Route path="login" element={<Login />} /> */}
             <Route index element={<Home />} />
-            <Route path="login" element={<Login />} />
-            <Route path="users">
-              <Route index element={<List />} />
-              <Route path=":id" element={<Single />} />
-              <Route
-                path="new"
-                element={<New inputs={userInputs} title="Add New Product" />}
-              />
-            </Route>
-            <Route path="products">
-              <Route index element={<List />} />
-              <Route path=":id" element={<Single />} />
-              <Route
-                path="new"
-                element={<New inputs={productInputs} title="Add New Product" />}
-              />
-            </Route>
-            <Route path="orders">
-              <Route index element={<List />} />
-              <Route path=":id" element={<Single />} />
-              <Route path="new" element={<New />} />
-            </Route>
+            <Route path="media" element={<Media />} />
+            <Route path="users" element={<Home />} />
+            <Route path="categories" element={<Home />} />
+            <Route path="products" element={<Home />} />
           </Route>
         </Routes>
-      </BrowserRouter>
-    </div>
+      </Layout>
+    </BrowserRouter>
   );
 }
 
