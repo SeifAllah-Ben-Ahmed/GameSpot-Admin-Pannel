@@ -41,7 +41,13 @@ app.use(cookieParser());
 
 // Security
 //Cors
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true, //access-control-allow-credentials:true
+    optionSuccessStatus: 200,
+  })
+);
 // Data sanitization against NoSQL query  injection
 app.use(mongoSanitier());
 

@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -9,10 +8,6 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Navigation from './Navigation';
-
-//icons
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 const drawerWidth = 240;
 
@@ -81,52 +76,37 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-const Layouts = ({ children }) => {
-  const theme = useTheme();
-  const [open, setOpen] = useState(false);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
+const Layout = ({ children }) => {
   return (
     <Box sx={{ display: 'flex' }}>
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={true}>
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            // onClick={handleDrawerOpen}
             edge="start"
             sx={{
               marginRight: 5,
-              ...(open && { display: 'none' }),
+              ...{ display: 'none' },
             }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" noWrap component="h6">
             Admin Panel
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
-          </IconButton>
-        </DrawerHeader>
+      <Drawer variant="permanent" open={true}>
+        <DrawerHeader></DrawerHeader>
         <Divider />
 
-        <Navigation open={open} />
+        <Navigation
+          open={true}
+          onMouseOver={'handleDrawerOpen'}
+          onMouseLeave={'handleDrawerClose'}
+        />
 
         {/* <Divider />
         <Navigation open={open} /> */}
@@ -139,4 +119,4 @@ const Layouts = ({ children }) => {
   );
 };
 
-export default Layouts;
+export default Layout;

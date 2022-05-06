@@ -1,66 +1,86 @@
 import List from '@mui/material/List';
-// import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Link from '@mui/material/Link';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
-import ListItem from '@mui/material/ListItem';
+import NavItem from './NavItem';
+import Dropdown from './Dropdown/Dropdown';
+import { ListSubheader } from '@mui/material';
 
 // icons
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import SpeedIcon from '@mui/icons-material/Speed';
+import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
+import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
-import LocalOfferRoundedIcon from '@mui/icons-material/LocalOfferRounded';
-import PermMediaRoundedIcon from '@mui/icons-material/PermMediaRounded';
 import InventoryRoundedIcon from '@mui/icons-material/InventoryRounded';
 
-const Navigation = ({ open }) => {
+const Navigation = ({ open, onMouseOver, onMouseLeave }) => {
   const nav = [
-    { title: 'Home', icon: <HomeRoundedIcon />, path: '/' },
-    { title: 'Media', icon: <PermMediaRoundedIcon />, path: '/media' },
-    { title: 'Users', icon: <AccountCircleIcon />, path: '/users' },
     {
-      title: 'Categories',
-      icon: <LocalOfferRoundedIcon />,
-      path: '/categories',
+      title: 'GENERAL',
+      menuItem: [
+        {
+          title: 'App',
+          path: '/',
+          icon: <SpeedIcon />,
+        },
+        {
+          title: 'Ecommerce',
+          path: '/ecommerce',
+          icon: <LocalGroceryStoreIcon />,
+        },
+        {
+          title: 'Analytics',
+          path: '/analytics',
+          icon: <AutoGraphIcon />,
+        },
+      ],
     },
-    { title: 'Products', icon: <ShoppingCartRoundedIcon />, path: '/products' },
-    { title: 'Commandes', icon: <InventoryRoundedIcon />, path: '/commandes' },
+    {
+      title: 'MANAGMENT',
+      menuItem: [
+        {
+          title: 'User',
+          icon: <AccountCircleIcon />,
+          subMenu: [
+            { title: 'list', path: '/user' },
+            { title: 'create', path: '/user/new' },
+          ],
+        },
+        {
+          title: 'Product',
+          path: '/product',
+          icon: <ShoppingCartRoundedIcon />,
+          subMenu: [
+            { title: 'list', path: '/product' },
+            { title: 'create', path: '/product/new' },
+            { title: 'brands', path: '/product/brands' },
+            { title: 'variants', path: '/product/variants' },
+          ],
+        },
+        {
+          title: 'Order',
+          path: '/order',
+          icon: <InventoryRoundedIcon />,
+          subMenu: [
+            { title: 'list', path: '/order' },
+            { title: 'create', path: '/order/new' },
+          ],
+        },
+      ],
+    },
   ];
-  const location = useLocation();
+
   return (
-    <List>
-      {nav.map((item, index) => (
-        <Link
-          color="text.primary"
-          underline="none"
-          component={RouterLink}
-          key={index}
-          to={`${item.path}`}
-        >
-          <ListItem
-            selected={item.path === location.pathname}
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
-              px: 2.5,
-            }}
-          >
-            <ListItemIcon
-              variant="inherit"
-              color="text.default"
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : 'auto',
-                justifyContent: 'center',
-              }}
-            >
-              {item.icon}
-            </ListItemIcon>
-            <ListItemText primary={item.title} sx={{ opacity: open ? 1 : 0 }} />
-          </ListItem>
-        </Link>
-      ))}
+    <List onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
+      {nav &&
+        nav.map((item, index) => (
+          <div key={index}>
+            {open && <ListSubheader>{item.title}</ListSubheader>}
+            {item.menuItem[index].subMenu ? (
+              <Dropdown open={open} item={item} />
+            ) : (
+              <NavItem open={open} item={item} />
+            )}
+          </div>
+        ))}
     </List>
   );
 };

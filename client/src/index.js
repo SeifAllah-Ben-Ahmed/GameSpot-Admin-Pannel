@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import StoreProvider from './redux';
 import theme from './theme';
+import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.render(
   <React.StrictMode>
