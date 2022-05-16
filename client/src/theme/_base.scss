@@ -1,0 +1,37 @@
+.form-group > input {
+  &:focus {
+    box-shadow: none;
+  }
+  &:focus-within {
+    border: 1px solid #000;
+  }
+}
+.wrapper {
+  width: 95%;
+  margin: 0 auto;
+  position: relative;
+  min-height: calc(100vh - 70px);
+}
+
+.header {
+  width: 95%;
+  margin: 0 auto;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+.content {
+  // @extend .container-fluid;
+  margin-top: 10px;
+  margin-left: 10px;
+  & .col-4 {
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+}
+
+.row > *:last-child {
+  padding-right: 8px;
+}

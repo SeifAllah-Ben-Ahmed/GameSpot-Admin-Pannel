@@ -37,6 +37,7 @@ app.listen(port, (err) => {
 // 1) MIDDLEWARES
 //Body & Cookie parser, reading data from body
 app.use(express.json());
+app.use(express.static('images'));
 app.use(cookieParser());
 
 // Security

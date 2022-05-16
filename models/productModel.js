@@ -33,18 +33,12 @@ const productSchema = new mongoose.Schema(
         message: 'Discount price ({VALUE}) should be below the regular price',
       },
     },
-    shortDescription: {
-      type: [String],
-      required: [true, 'A product must have a description'],
-    },
+    // shortDescription: {
+    //   type: [String],
+    //   required: [true, 'A product must have a description'],
+    // },
     description: {
-      type: String,
-      required: [true, 'A product must have a description'],
-      minlength: [
-        30,
-        'A product name must have more or equal then 30 characters',
-      ],
-      trim: true,
+      type: Object,
     },
     imageCover: {
       type: String,
@@ -73,18 +67,18 @@ const productSchema = new mongoose.Schema(
     },
     attributes: [
       {
-        key: {
+        attributeName: {
           type: String,
-          required: [true, 'Key can not be empty!'],
-          unique: [true, 'Attribute key most be unique!'],
+          required: [true, 'Attribute Name can not be empty!'],
+          // unique: [true, 'Attribute key most be unique!'],
           trim: true,
           lowercase: true,
         },
 
-        value: {
+        attributeValue: {
           type: String,
-          required: [true, 'value can not be empty!'],
-          unique: [true, 'Attribute key most be unique!'],
+          required: [true, 'Attribute Value can not be empty!'],
+          // unique: [true, 'Attribute key most be unique!'],
           trim: true,
           lowercase: true,
         },

@@ -1,19 +1,14 @@
-import { CssBaseline, ThemeProvider } from '@mui/material';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import StoreProvider from './redux';
-import theme from './theme';
+
 import 'react-toastify/dist/ReactToastify.css';
+import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import './theme/style.scss';
 
 ReactDOM.render(
   <React.StrictMode>
-    <StoreProvider>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <App />
-      </ThemeProvider>
-    </StoreProvider>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

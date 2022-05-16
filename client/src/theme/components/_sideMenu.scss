@@ -1,0 +1,13 @@
+.left-side-menu {
+  max-height: calc(100vh - 140px);
+  height: max-content;
+  background: #fff;
+  bottom: 0;
+  padding: 25px 10px;
+  position: fixed;
+  top: 70px;
+  margin-bottom: 70px;
+  box-shadow: 0 0 2px 0 rgb(0 0 0 / 10%);
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
