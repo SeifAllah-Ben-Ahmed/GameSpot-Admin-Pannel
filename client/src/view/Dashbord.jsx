@@ -1,6 +1,6 @@
 import ChartAria from '../components/ChartAria';
 import ChartPie from '../components/ChartPie';
-import UserTab from '../components/UserTab';
+import Tab from '../components/Tab';
 import Widget from '../components/Widget/Widget';
 
 const Dashbord = () => {
@@ -16,7 +16,7 @@ const Dashbord = () => {
           <ChartPie />
         </div>
         <div className="col-lg-8">
-          <UserTab />
+          <Tab />
         </div>
       </div>
       <div className="row">

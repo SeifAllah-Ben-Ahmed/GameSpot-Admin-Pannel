@@ -12,7 +12,7 @@ const TagsInput = ({ ...props }) => {
       event.target.value.length > 1
     ) {
       setTags([...tags, event.target.value.slice(0, -1)]);
-      props.formik.setFieldValue('Tags', [
+      props.formik.setFieldValue(props.name, [
         ...tags,
         event.target.value.slice(0, -1),
       ]);
@@ -24,7 +24,7 @@ const TagsInput = ({ ...props }) => {
     setTags([...tags.filter((tag) => tags.indexOf(tag) !== index)]);
 
     props.formik.setFieldValue(
-      'Tags',
+      props.name,
       tags.filter((tag) => tags.indexOf(tag) !== index)
     );
   };

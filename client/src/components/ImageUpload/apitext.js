@@ -1,30 +1,6 @@
 import axios from 'axios';
 
 export default async function apitext(product) {
-  // function getFormData(object) {
-  //   const formData = new FormData();
-  //   Object.keys(object).forEach((key) => {
-  //     console.log(key, object[key]);
-  //     if (Array.isArray(object[key])) {
-  //       for (var i = 0; i < object[key].length; i++) {
-  //         if (typeof object[key][i] === 'object') {
-  //           Object.keys(object[key][i]).forEach((nestkey) => {
-  //             formData.append(key[nestkey], object[key][i]['attributeName']);
-  //           });
-  //           formData.append(
-  //             key['attributeValue'],
-  //             object[key][i]['attributeValue']
-  //           );
-  //         }
-  //         formData.append(key, object[key][i]);
-  //       }
-  //     } else {
-  //       formData.append(key, object[key]);
-  //     }
-  //   });
-  //   return formData;
-  // }
-  // console.log(product);
   try {
     // const data = getFormData(product);
     const formData = new FormData();
@@ -35,7 +11,7 @@ export default async function apitext(product) {
     for (let i = 0; i < product.Tags.length; i++) {
       formData.append('Tags', product.Tags[i]);
     }
-    console.log(product.attributes);
+
     for (let i = 0; i < product.attributes.length; i++) {
       formData.append(
         `attributes[${i}][attributeName]`,
@@ -47,7 +23,7 @@ export default async function apitext(product) {
       );
     }
 
-    formData.append('description', JSON.stringify(product.description));
+    formData.append('description', product.description);
     formData.append('imageCover', product.imageCover);
     formData.append('name', product.name);
     formData.append('price', product.price);
@@ -71,3 +47,27 @@ export default async function apitext(product) {
     console.log(error.response.data);
   }
 }
+
+// function getFormData(object) {
+//   const formData = new FormData();
+//   Object.keys(object).forEach((key) => {
+//     console.log(key, object[key]);
+//     if (Array.isArray(object[key])) {
+//       for (var i = 0; i < object[key].length; i++) {
+//         if (typeof object[key][i] === 'object') {
+//           Object.keys(object[key][i]).forEach((nestkey) => {
+//             formData.append(key[nestkey], object[key][i]['attributeName']);
+//           });
+//           formData.append(
+//             key['attributeValue'],
+//             object[key][i]['attributeValue']
+//           );
+//         }
+//         formData.append(key, object[key][i]);
+//       }
+//     } else {
+//       formData.append(key, object[key]);
+//     }
+//   });
+//   return formData;
+// }

@@ -16,7 +16,7 @@ const RichEditor = ({ name, formik }) => {
     );
   };
 
-  // console.log(draftToHtml(convertToRaw(content.getCurrentContent())));
+  // console.log(draftToHtml(JSON.parse(x)));
 
   return (
     <>
@@ -24,7 +24,7 @@ const RichEditor = ({ name, formik }) => {
         editorClassName="p-2"
         name={name}
         editorState={content}
-        style={{ maxHeight: '200px' }}
+        style={{ height: '200px' }}
         wrapperClassName={`form-control shadow-none p-0 mb-2 ${
           (meta.touched && meta.error && 'is-invalid') ||
           (meta.touched && !meta.error && 'is-valid')

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const UserTab = () => {
+const Tab = () => {
   return (
     <div className="card">
       <div className="table-responsive">
@@ -36,8 +36,8 @@ const UserTab = () => {
                 <span className="ms-1">Paid</span>
               </td>
               <td>
-                <img src="https://i.imgur.com/VKOeFyS.png" width="25" /> Althan
-                Travis
+                <img src="https://i.imgur.com/VKOeFyS.png" width="25" alt="" />{' '}
+                Althan Travis
               </td>
               <td>Wirecard for figma</td>
               <td className="text-end">
@@ -53,8 +53,8 @@ const UserTab = () => {
                 <span className="ms-1">Failed</span>
               </td>
               <td>
-                <img src="https://i.imgur.com/nmnmfGv.png" width="25" /> Tomo
-                arvis
+                <img src="https://i.imgur.com/nmnmfGv.png" width="25" alt="" />{' '}
+                Tomo arvis
               </td>
               <td>Altroz furry</td>
               <td className="text-end">
@@ -70,12 +70,12 @@ const UserTab = () => {
                 <span className="ms-1">Paid</span>
               </td>
               <td>
-                <img src="https://i.imgur.com/VKOeFyS.png" width="25" /> Althan
-                Travis
+                <img src="https://i.imgur.com/VKOeFyS.png" width="25" alt="" />{' '}
+                Althan Travis
               </td>
               <td>Apple Macbook air</td>
               <td className="text-end">
-                <span className="fw-bolder">$1.99</span>{' '}
+                <span className="fw-bolder">$1.99</span>
               </td>
             </tr>
 
@@ -86,8 +86,8 @@ const UserTab = () => {
                 <span className="ms-1">Paid</span>
               </td>
               <td>
-                <img src="https://i.imgur.com/VKOeFyS.png" width="25" /> Travis
-                head
+                <img src="https://i.imgur.com/VKOeFyS.png" width="25" alt="" />{' '}
+                Travis head
               </td>
               <td>Apple Macbook Pro</td>
               <td className="text-end">
@@ -103,8 +103,8 @@ const UserTab = () => {
                 <span className="ms-1">Paid</span>
               </td>
               <td>
-                <img src="https://i.imgur.com/nmnmfGv.png" width="25" /> Althan
-                Travis
+                <img src="https://i.imgur.com/nmnmfGv.png" width="25" alt="" />
+                Althan Travis
               </td>
               <td>Wirecard for figma</td>
               <td className="text-end">
@@ -119,8 +119,8 @@ const UserTab = () => {
                 <span className="ms-1">Paid</span>
               </td>
               <td>
-                <img src="https://i.imgur.com/nmnmfGv.png" width="25" /> Althan
-                Travis
+                <img src="https://i.imgur.com/nmnmfGv.png" width="25" alt="" />{' '}
+                Althan Travis
               </td>
               <td>Wirecard for figma</td>
               <td className="text-end">
@@ -134,4 +134,4 @@ const UserTab = () => {
   );
 };
 
-export default UserTab;
+export default Tab;

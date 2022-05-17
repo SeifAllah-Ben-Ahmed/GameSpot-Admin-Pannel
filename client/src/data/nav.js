@@ -1,24 +1,71 @@
 export const nav = [
   {
-    title: 'Products',
+    title: 'Product',
     subTitles: [
-      'List Products',
-      'Create Product',
-      'Brands',
-      'Attributes',
-      'Categories',
+      {
+        sub: 'List Products',
+        to: '/product',
+      },
+      {
+        sub: 'Create Product',
+        to: '/product/add',
+      },
+
+      {
+        sub: 'Attributes',
+        to: '/product/attributes',
+      },
+      {
+        sub: 'Brands',
+        to: 'product/brands',
+      },
+      {
+        sub: 'Categories',
+        to: '/product/categories',
+      },
     ],
   },
   {
     title: 'Users',
-    subTitles: ['List Users', 'Create User'],
+    subTitles: [
+      {
+        sub: 'List Users',
+        to: '/user',
+      },
+      {
+        sub: 'Create User',
+        to: '/user/add',
+      },
+    ],
   },
   {
     title: 'Orders',
-    subTitles: ['List Orders', 'Create Order'],
+    subTitles: [
+      {
+        sub: 'List Orders',
+        to: '/order',
+      },
+      {
+        sub: 'Create Order',
+        to: '/order/add',
+      },
+    ],
   },
   {
     title: 'Statistics',
-    subTitles: ['Products Stats', 'Users Stats', 'Orders Stats'],
+    subTitles: [
+      {
+        sub: 'Products Stats',
+        to: '/stats/product',
+      },
+      {
+        sub: 'Users Stats',
+        to: '/stats/user',
+      },
+      {
+        sub: 'Orders Stats',
+        to: '/stats/order',
+      },
+    ],
   },
 ];

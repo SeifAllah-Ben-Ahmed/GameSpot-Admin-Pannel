@@ -20,7 +20,7 @@ function SidebarItems({ item }) {
         <ul className="mb-1">
           {item.subTitles.map((item, index) => (
             <li className="btn-toggle-nav" key={index}>
-              <Link to={'/product/add'}>{item}</Link>
+              <Link to={item.to}>{item.sub}</Link>
             </li>
           ))}
         </ul>
