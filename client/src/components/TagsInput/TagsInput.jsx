@@ -30,7 +30,9 @@ const TagsInput = ({ ...props }) => {
   };
   return (
     <>
+      <label htmlFor={props.name}>{props.name}</label>
       <input
+        id={props.name}
         {...props}
         autoComplete="off"
         className={`form-control shadow-none  ${

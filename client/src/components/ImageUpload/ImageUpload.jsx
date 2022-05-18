@@ -2,7 +2,7 @@ import { getIn } from 'formik';
 import React, { useState } from 'react';
 import ErrorMessage from '../ErrorMessage';
 
-const ImageUpload = ({ multiple, name, formik }) => {
+const ImageUpload = ({ multiple, name, label, formik }) => {
   const [preview, setPreview] = useState([]);
   const errorField = () => {
     const error = getIn(formik.errors, name);
@@ -23,16 +23,14 @@ const ImageUpload = ({ multiple, name, formik }) => {
 
   return (
     <div className={`${multiple && 'fleat-end'}`}>
-      <h5 className="fw-normal text-muted  me-3">
-        {multiple ? 'Secondary Images' : 'Principal Image'}
-      </h5>
+      <h5 className="fw-normal text-muted  me-3">{label}</h5>
       <div className="upload">
         <div className="form-group  mb-3">
           <input
             name={name}
             type="file"
             multiple={multiple}
-            className={`form-control ${
+            className={`form-control shadow-none ${
               (errorField()[0] && 'is-invalid') ||
               (errorField()[1] && 'is-valid')
             } `}

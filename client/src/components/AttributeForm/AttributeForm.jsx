@@ -18,9 +18,7 @@ const AttributeForm = () => {
       >
         {(formik) => (
           <Form method="post" encType="multipart/form-data">
-            <h3 className="fw-normal text-muted float-start mb-3">
-              Add new Attributes
-            </h3>
+            <h3 className="fw-normal text-muted mb-3">Add new Attributes</h3>
             <div className="mb-3">
               <Input
                 formik={formik}

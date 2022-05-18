@@ -40,12 +40,11 @@ const ProductForm = ({ product }) => {
     >
       {(formik) => (
         <Form method="post" encType="multipart/form-data">
-          <h3 className="fw-normal text-muted float-start mb-3">
-            Add new Product
-          </h3>
+          <h3 className="fw-normal text-muted  mb-3">Add new Product</h3>
           <div className="float-end">
             <SwitchInput lable="Publish" id="Published" name="Published" />
           </div>
+
           <div className="mb-3">
             <Input placeholder="Product Name" name="name" type="text" />
             <small className="form-text text-muted">
@@ -128,9 +127,18 @@ const ProductForm = ({ product }) => {
             </FieldArray>
           </div>
           <div className="row mb-3">
-            <ImageUpload name="imageCover" formik={formik} />
+            <ImageUpload
+              name="imageCover"
+              formik={formik}
+              label="Principal Image"
+            />
 
-            <ImageUpload name="images" multiple={true} formik={formik} />
+            <ImageUpload
+              name="images"
+              multiple={true}
+              formik={formik}
+              label="Secondary Images"
+            />
           </div>
           <div className="d-grid gap-2">
             <button className="btn my-3 btn-danger btn-lg" type="submit">

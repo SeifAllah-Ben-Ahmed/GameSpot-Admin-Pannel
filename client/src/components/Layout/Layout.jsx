@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
       <div className="wrapper">
         <div className="row ">
           <Sidebar />
-          <div className="col-10 offset-2  pr-1">
+          <div className="col-10 offset-2 pe-0">
             <div className="content">{children}</div>
           </div>
         </div>
