@@ -1,6 +1,5 @@
 import SidebarItems from './SidebarItems';
 import { nav } from '../../data/nav';
-
 const Sidebar = () => {
   return (
     <aside className="col-2 card left-side-menu">

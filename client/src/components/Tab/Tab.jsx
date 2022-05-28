@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Tab = () => {
   return (
     <div className="card">
@@ -8,22 +6,22 @@ const Tab = () => {
           <thead>
             <tr className="bg-light">
               <th scope="col" width="5%">
-                #
+                SKU
               </th>
               <th scope="col" width="20%">
-                Date
+                Name
               </th>
               <th scope="col" width="10%">
                 Status
               </th>
               <th scope="col" width="20%">
-                Customer
+                Price
               </th>
               <th scope="col" width="20%">
-                Address
+                quantity
               </th>
               <th scope="col" className="text-end" width="20%">
-                <span>Revenue</span>
+                <span>Actions</span>
               </th>
             </tr>
           </thead>

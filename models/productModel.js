@@ -49,7 +49,7 @@ const productSchema = new mongoose.Schema(
       type: String,
       unique: [true, 'A product SKU must be unique '],
     },
-    Published: {
+    published: {
       type: Boolean,
       default: true,
     },
@@ -65,22 +65,32 @@ const productSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    brand: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Brand',
+    },
+    category: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Category',
+      required: true,
+    },
+    subCategory: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Category',
+      required: false,
+    },
     attributes: [
       {
         attributeName: {
           type: String,
           required: [true, 'Attribute Name can not be empty!'],
-          // unique: [true, 'Attribute key most be unique!'],
           trim: true,
-          lowercase: true,
         },
 
         attributeValue: {
           type: String,
           required: [true, 'Attribute Value can not be empty!'],
-          // unique: [true, 'Attribute key most be unique!'],
           trim: true,
-          lowercase: true,
         },
       },
     ],
@@ -103,14 +113,19 @@ productSchema.pre('save', function (next) {
 });
 
 // QUERY MIDDLEWARE: runs before all the commandes that start with find => .find() .findOne() ....
-productSchema.pre(/^find/, function (next) {
-  this.find({ secretTour: { $ne: true } });
-  this.start = Date.now();
-  next();
-});
+// productSchema.pre(/^find/, function (next) {
+//   this.find({ secretTour: { $ne: true } });
+//   this.start = Date.now();
+//   next();
+// });
 
 productSchema.pre(/^find/, function (next) {
-  this.select('-__v');
+  this.populate({
+    path: 'category subCategory brand',
+    select: '-__v',
+  });
+  // this.select('-__v');
+  // this.populate(['followers', 'following']);
   next();
 });
 

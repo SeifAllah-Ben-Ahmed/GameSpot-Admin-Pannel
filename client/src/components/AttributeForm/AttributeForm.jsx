@@ -1,20 +1,26 @@
 import { Form, Formik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { createAttribute } from '../../features/product/productApi';
+import { attributeSchema } from '../../models/product';
 import Input from '../Input';
 import TagsInput from '../TagsInput';
 
 const AttributeForm = () => {
   const initialValues = {
     key: '',
-    values: [],
+    value: [],
   };
+  const dispatch = useDispatch();
+
   return (
     <div>
       <Formik
-        onSubmit={async (values, actions) => {
-          console.log(values);
+        onSubmit={(values, actions) => {
+          dispatch(createAttribute(values));
+          actions.resetForm();
         }}
         initialValues={initialValues}
-        // validationSchema={productSchema}
+        validationSchema={attributeSchema}
       >
         {(formik) => (
           <Form method="post" encType="multipart/form-data">
@@ -22,7 +28,7 @@ const AttributeForm = () => {
             <div className="mb-3">
               <Input
                 formik={formik}
-                placeholder={'Attributes Key'}
+                placeholder={'Attributes key'}
                 name="key"
                 type="text"
               />
@@ -30,23 +36,16 @@ const AttributeForm = () => {
             <div className="mb-3">
               <TagsInput
                 formik={formik}
-                placeholder={'Attributes Values'}
-                name="values"
+                placeholder={'Attributes Values seperated by ","'}
+                name="value"
                 type="text"
               />
             </div>
             <div className="d-grid gap-2">
               <button className="btn my-3 btn-danger btn-lg" type="submit">
-                Add Product
+                Add Attribute
               </button>
             </div>
-            <pre>
-              {JSON.stringify(
-                { values: formik.values, errors: formik.errors },
-                null,
-                4
-              )}
-            </pre>
           </Form>
         )}
       </Formik>

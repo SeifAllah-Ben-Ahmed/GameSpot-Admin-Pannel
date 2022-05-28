@@ -1,49 +1,65 @@
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { FieldArray, Form, Formik } from 'formik';
 import Input from '../Input';
 import RichEditor from '../RichEditor';
-import SelectInput from '../SelectInput';
+import SelectInput, { SelectBrandInput } from '../SelectInput';
 import SwitchInput from '../SwitchInput';
 import TagsInput from '../TagsInput';
 import { productSchema } from '../../models/product';
 import ImageUpload from '../ImageUpload';
-import apitext from '../ImageUpload/apitext';
+import {
+  createProduct,
+  updateProduct,
+} from '../../features/product/productApi';
+
+import CategoryAndSubSelect from '../CategorySelect/CategoryAndSubSelect';
 
 const ProductForm = ({ product }) => {
   const initialValues = {
-    name: product?.name || '',
-    price: product?.price || '',
-    priceDiscount: product?.priceDiscount || '',
-    SKU: product?.SKU || '',
-    Published: product?.Published || false,
-    IsFeatured: product?.IsFeatured || false,
-    Tags: product?.Tags || [],
-    quantity: product?.quantity || '',
-    attributes: product?.attributes || [],
-    images: product?.images || [],
-    imageCover: product?.imageCover || '',
-    description: product?.description || '',
+    name: '',
+    price: '',
+    priceDiscount: '',
+    SKU: '',
+    published: false,
+    IsFeatured: false,
+    Tags: [],
+    quantity: '',
+    attributes: [],
+    images: [],
+    imageCover: '',
+    description: '',
+    brand: '',
+    category: '',
   };
+
+  const dispatch = useDispatch();
+  const { slug } = useParams();
+
   return (
     <Formik
-      onSubmit={async (values, actions) => {
-        await apitext({
-          ...values,
-          attributes: [
-            ...new Map(
-              values.attributes.map((item) => [item['attributeName'], item])
-            ).values(),
-          ],
-        });
+      onSubmit={(values, actions) => {
+        slug
+          ? dispatch(updateProduct(values))
+          : dispatch(createProduct(values));
       }}
-      initialValues={initialValues}
+      initialValues={
+        slug
+          ? {
+              ...product,
+              brand: product.brand._id,
+              category: product.category._id,
+              subCategory: product.subCategory._id,
+            }
+          : initialValues
+      }
       validationSchema={productSchema}
     >
       {(formik) => (
         <Form method="post" encType="multipart/form-data">
-          <h3 className="fw-normal text-muted  mb-3">Add new Product</h3>
-          <div className="float-end">
-            <SwitchInput lable="Publish" id="Published" name="Published" />
-          </div>
+          <h3 className="fw-normal text-muted  mb-3">
+            {slug ? 'Update Product' : 'Add new Product'}
+          </h3>
 
           <div className="mb-3">
             <Input placeholder="Product Name" name="name" type="text" />
@@ -87,13 +103,6 @@ const ProductForm = ({ product }) => {
             />
           </div>
           <div className="mb-3">
-            <SwitchInput
-              lable="Featured Product"
-              id="Featured"
-              name="IsFeatured"
-            />
-          </div>
-          <div className="mb-3">
             <FieldArray name="attributes">
               {({ push, remove, form }) => {
                 return (
@@ -101,6 +110,7 @@ const ProductForm = ({ product }) => {
                     <div className="d-flex align-items-center jutify-content-center mb-3">
                       <h5 className="fw-normal text-muted  me-3">Attributes</h5>
                       <button
+                        type="button"
                         className="btn btn-secondary "
                         onClick={() =>
                           push({ attributeName: '', attributeValue: '' })
@@ -109,12 +119,16 @@ const ProductForm = ({ product }) => {
                         +
                       </button>
                     </div>
-                    {formik.values.attributes.map((_, i) => (
+                    {formik.values.attributes?.map((_, i) => (
                       <div className="row" key={i}>
                         <div className="row mb-3" key={i}>
                           <SelectInput index={i} form={form} />
                           <div className="col">
-                            <button className="btn" onClick={() => remove(i)}>
+                            <button
+                              className="btn"
+                              type="button"
+                              onClick={() => remove(i)}
+                            >
                               Delete
                             </button>
                           </div>
@@ -127,31 +141,44 @@ const ProductForm = ({ product }) => {
             </FieldArray>
           </div>
           <div className="row mb-3">
+            <div className="col">
+              <SelectBrandInput form={formik} />
+            </div>
+          </div>
+          <div className="row mb-3">
             <ImageUpload
+              srcBase={`${process.env.REACT_APP_BACKEND}/products`}
               name="imageCover"
               formik={formik}
               label="Principal Image"
             />
 
             <ImageUpload
+              srcBase={`${process.env.REACT_APP_BACKEND}/products`}
               name="images"
               multiple={true}
               formik={formik}
               label="Secondary Images"
             />
           </div>
+          <div className="row mb-3">
+            <CategoryAndSubSelect form={formik} />
+          </div>
+          <div className="mb-3">
+            <SwitchInput
+              lable="Featured Product"
+              id="Featured"
+              name="IsFeatured"
+            />
+          </div>
+          <div className="mb-3">
+            <SwitchInput lable="Publish" id="published" name="published" />
+          </div>
           <div className="d-grid gap-2">
             <button className="btn my-3 btn-danger btn-lg" type="submit">
-              Add Product
+              {slug ? 'Update Product' : 'Add Product'}
             </button>
           </div>
-          <pre>
-            {JSON.stringify(
-              { values: formik.values, errors: formik.errors },
-              null,
-              4
-            )}
-          </pre>
         </Form>
       )}
     </Formik>

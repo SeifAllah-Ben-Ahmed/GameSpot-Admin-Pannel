@@ -1,9 +1,13 @@
 import { Form, Formik } from 'formik';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { createBrand } from '../../features/product/productApi';
+import { brandSchema } from '../../models/product';
 import ImageUpload from '../ImageUpload';
 import Input from '../Input';
 
 const BrandForm = () => {
+  const dispatch = useDispatch();
   const initialValues = {
     logo: '',
     brand: '',
@@ -11,10 +15,11 @@ const BrandForm = () => {
   return (
     <Formik
       onSubmit={async (values, actions) => {
-        console.log(values);
+        dispatch(createBrand(values));
+        actions.resetForm();
       }}
       initialValues={initialValues}
-      // validationSchema={productSchema}
+      validationSchema={brandSchema}
     >
       {(formik) => (
         <Form method="post" encType="multipart/form-data">
@@ -28,20 +33,18 @@ const BrandForm = () => {
             />
           </div>
           <div className="mb-3">
-            <ImageUpload formik={formik} name="logo" label={'Brand Logo'} />
+            <ImageUpload
+              formik={formik}
+              name="logo"
+              srcBase={`${process.env.REACT_APP_BACKEND}/products/logo`}
+              label={'Brand Logo'}
+            />
           </div>
           <div className="d-grid gap-2">
             <button className="btn my-3 btn-danger btn-lg" type="submit">
               Add Product
             </button>
           </div>
-          <pre>
-            {JSON.stringify(
-              { values: formik.values, errors: formik.errors },
-              null,
-              4
-            )}
-          </pre>
         </Form>
       )}
     </Formik>

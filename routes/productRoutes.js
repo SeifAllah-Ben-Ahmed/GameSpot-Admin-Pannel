@@ -1,30 +1,36 @@
 const express = require('express');
 
-const productContoller = require('../controllers/productController');
+const productController = require('../controllers/productController');
 const authController = require('../controllers/authController');
+
+const brandRouter = require('./brandRoutes');
+const categoryRoutes = require('./categoryRoutes');
 
 const router = express.Router();
 
-router.route('/').get(productContoller.getAllProducts);
-router.route('/:slug').get(productContoller.getProduct);
+router.use('/brand', brandRouter);
+router.use('/category', categoryRoutes);
+
+router.route('/').get(productController.getAllProducts);
+router.route('/:slug').get(productController.getProduct);
 
 router.use(authController.protect, authController.restrictTo('admin'));
 
 router
   .route('/')
   .post(
-    productContoller.uploadimages,
-    productContoller.resizeProductImages,
-    productContoller.createProduct
+    productController.uploadimages,
+    productController.resizeProductImages,
+    productController.createProduct
   );
 
 router
   .route('/:slug')
   .patch(
-    productContoller.uploadimages,
-    productContoller.resizeProductImages,
-    productContoller.updateProduct
+    productController.uploadimages,
+    productController.resizeProductImages,
+    productController.updateProduct
   )
-  .delete(productContoller.deleteProduct);
+  .delete(productController.deleteProduct);
 
 module.exports = router;

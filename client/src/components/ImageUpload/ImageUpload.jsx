@@ -1,9 +1,19 @@
 import { getIn } from 'formik';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ErrorMessage from '../ErrorMessage';
 
-const ImageUpload = ({ multiple, name, label, formik }) => {
+const ImageUpload = ({ multiple, name, label, formik, srcBase }) => {
   const [preview, setPreview] = useState([]);
+  useEffect(() => {
+    setPreview((prev) =>
+      formik.values[name]?.length && typeof formik.values[name][0] === 'string'
+        ? multiple
+          ? formik.values[name]?.map((el) => `${srcBase}/${el}`)
+          : [`${srcBase}/${formik.values[name]}`]
+        : prev
+    );
+  }, [setPreview, formik, multiple, name, srcBase]);
+
   const errorField = () => {
     const error = getIn(formik.errors, name);
 
@@ -22,7 +32,7 @@ const ImageUpload = ({ multiple, name, label, formik }) => {
   };
 
   return (
-    <div className={`${multiple && 'fleat-end'}`}>
+    <>
       <h5 className="fw-normal text-muted  me-3">{label}</h5>
       <div className="upload">
         <div className="form-group  mb-3">
@@ -52,7 +62,7 @@ const ImageUpload = ({ multiple, name, label, formik }) => {
             </div>
           ))}
       </div>
-    </div>
+    </>
   );
 };
 

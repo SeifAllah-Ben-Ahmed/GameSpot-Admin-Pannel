@@ -59,7 +59,7 @@ app.use(helmet());
 app.use(
   '/api',
   rateLimit({
-    max: 60,
+    max: 600,
     windowMs: 15 * 60 * 1000,
     message: 'Too many requests from this IP, please try again in 15 minutes!',
   })

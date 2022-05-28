@@ -1,23 +1,16 @@
 import { Field, getIn } from 'formik';
-import React from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAttributes } from '../../features/product/productApi';
 import ErrorMessage from '../ErrorMessage';
 
-const select = [
-  {
-    attributeName: 'cpu',
-    attributeValue: ['i3', 'i5', 'i7'],
-  },
-  {
-    attributeName: 'gpu',
-    attributeValue: ['gtx 1050', 'rtx3060', 'rtx 3090'],
-  },
-  {
-    attributeName: 'ram',
-    attributeValue: ['8go', '16go', '32go'],
-  },
-];
-
 const SelectInput = ({ form, index }) => {
+  const dispatch = useDispatch();
+  const { attributes } = useSelector((store) => store.product);
+  useEffect(() => {
+    dispatch(getAttributes());
+  }, [dispatch]);
+
   const errorField = (field) => {
     const error = getIn(form.errors, `attributes[${index}].${field}`);
     const touch = getIn(form.touched, `attributes[${index}].${field}`);
@@ -37,9 +30,9 @@ const SelectInput = ({ form, index }) => {
           } `}
         >
           <option value="">select Key attribute</option>
-          {select.map((item, i) => (
-            <option key={i} value={item.attributeName}>
-              {item.attributeName}
+          {attributes?.map((item) => (
+            <option key={item._id} value={item.key}>
+              {item.key}
             </option>
           ))}
         </Field>
@@ -50,7 +43,6 @@ const SelectInput = ({ form, index }) => {
         {form.values.attributes[index].attributeName && (
           <>
             <Field
-              // as="select"
               as="select"
               placeholder="Attributes attributeValue"
               className={`form-control shadow-none ${
@@ -60,13 +52,12 @@ const SelectInput = ({ form, index }) => {
               name={`attributes[${index}].attributeValue`}
             >
               <option value="">select value attribute</option>
-              {select
-                .find(
+              {attributes
+                ?.find(
                   (obj) =>
-                    obj.attributeName ===
-                    form.values.attributes[index].attributeName
+                    obj.key === form.values.attributes[index].attributeName
                 )
-                .attributeValue.map((el, i) => (
+                ?.value.map((el, i) => (
                   <option key={i} value={el}>
                     {el}
                   </option>

@@ -66,7 +66,6 @@ exports.resizeProductImages = catchAsync(async (req, res, next) => {
 });
 
 exports.createProduct = catchAsync(async (req, res, next) => {
-  console.log(req.body);
   const product = await Product.create(req.body);
 
   res.status(201).json({

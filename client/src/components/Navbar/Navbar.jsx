@@ -1,7 +1,10 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logout } from '../../features/auth/authApi';
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   return (
     <nav className="navbar  card">
       <div className="container-fluid">
@@ -15,6 +18,12 @@ const Navbar = () => {
             />
           </Link>
         </div>
+        <button
+          className="btn btn-outline-danger"
+          onClick={() => dispatch(logout())}
+        >
+          logout
+        </button>
       </div>
     </nav>
   );

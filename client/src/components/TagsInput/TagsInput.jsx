@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ErrorMessage, useField } from 'formik';
 
 const TagsInput = ({ ...props }) => {
   const [field, meta] = useField(props.name);
-  const [tags, setTags] = useState([...field.value]);
+  const [tags, setTags] = useState(field.value);
+
+  useEffect(() => {
+    setTags(field.value);
+  }, [field.value]);
 
   const addTags = (event) => {
     if (
@@ -30,7 +34,7 @@ const TagsInput = ({ ...props }) => {
   };
   return (
     <>
-      <label htmlFor={props.name}>{props.name}</label>
+      <label htmlFor={props.name}>{props.placeholder}</label>
       <input
         id={props.name}
         {...props}
@@ -49,7 +53,7 @@ const TagsInput = ({ ...props }) => {
       />
 
       <ul id="tags">
-        {tags.map((tag, index) => (
+        {tags?.map((tag, index) => (
           <li className="tag" key={index}>
             <span className="tag-title">{tag}</span>
             <span className="tag-close-icon" onClick={() => removeTags(index)}>

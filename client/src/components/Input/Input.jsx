@@ -3,7 +3,7 @@ import { ErrorMessage, Field, useField } from 'formik';
 const Input = ({ ...props }) => {
   const [field, meta] = useField(props);
   return (
-    <div class="form-group">
+    <div className="form-group">
       <label htmlFor={props.name}>{props.placeholder}</label>
 
       <Field
