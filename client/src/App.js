@@ -5,10 +5,10 @@ import { ToastContainer } from 'react-toastify';
 
 import { currentUser } from './features/auth/authApi';
 
-const Category = lazy(() => import('./components/Category'));
-const EditeAttribute = lazy(() => import('./components/EditeAttribute'));
-const EditeBrand = lazy(() => import('./components/EditeBrand'));
-const EditeCategory = lazy(() => import('./components/EditeCategory'));
+const Category = lazy(() => import('./view/Category'));
+const EditeAttribute = lazy(() => import('./view/EditeAttribute'));
+const EditeBrand = lazy(() => import('./view/EditeBrand'));
+const EditeCategory = lazy(() => import('./view/EditeCategory'));
 const Layout = lazy(() => import('./components/Layout'));
 const AddProduct = lazy(() => import('./view/AddProduct'));
 const Dashbord = lazy(() => import('./view/Dashbord'));
