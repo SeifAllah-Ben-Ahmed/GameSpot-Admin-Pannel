@@ -41,7 +41,7 @@ exports.resizeProductImages = catchAsync(async (req, res, next) => {
       .resize(512, 512)
       .toFormat('jpeg')
       .jpeg({ quality: 100 })
-      .toFile(`images/products/${req.body.imageCover}`);
+      .toFile(`client/public/images/products/${req.body.imageCover}`);
   }
   // 2) images
   if (req.files && req.files.images) {
@@ -55,7 +55,7 @@ exports.resizeProductImages = catchAsync(async (req, res, next) => {
           .resize(512, 512)
           .toFormat('jpeg')
           .jpeg({ quality: 100 })
-          .toFile(`images/products/${filename}`);
+          .toFile(`client/public/images/products/${filename}`);
 
         req.body.images.push(filename);
       })

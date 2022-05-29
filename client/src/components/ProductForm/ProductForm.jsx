@@ -147,14 +147,14 @@ const ProductForm = ({ product }) => {
           </div>
           <div className="row mb-3">
             <ImageUpload
-              srcBase={`${process.env.REACT_APP_BACKEND}/products`}
+              srcBase={`/images/products`}
               name="imageCover"
               formik={formik}
               label="Principal Image"
             />
 
             <ImageUpload
-              srcBase={`${process.env.REACT_APP_BACKEND}/products`}
+              srcBase={`/images/products`}
               name="images"
               multiple={true}
               formik={formik}

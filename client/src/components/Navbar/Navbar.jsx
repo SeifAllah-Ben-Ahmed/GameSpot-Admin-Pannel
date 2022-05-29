@@ -11,7 +11,7 @@ const Navbar = () => {
         <div className="navbar-brand">
           <Link to="/">
             <img
-              src="https://www.gamestop.com/on/demandware.static/Sites-gamestop-us-Site/-/default/dw246d832e/images/svg-icons/logo-gs-2.svg"
+              src="/logo.svg"
               alt="logo"
               height="30"
               className="d-inline-block align-text-top"

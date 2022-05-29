@@ -36,7 +36,7 @@ const BrandForm = () => {
             <ImageUpload
               formik={formik}
               name="logo"
-              srcBase={`${process.env.REACT_APP_BACKEND}/products/logo`}
+              srcBase={`/products/logo`}
               label={'Brand Logo'}
             />
           </div>

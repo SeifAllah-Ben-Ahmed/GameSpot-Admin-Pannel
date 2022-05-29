@@ -25,10 +25,10 @@ exports.resizeLogo = catchAsync(async (req, res, next) => {
     req.body.logo = `logo-${req.body.brand}.jpeg`;
 
     await sharp(req.file.buffer)
-      .resize(100, 100)
+      .resize({ height: 100 })
       .toFormat('jpeg')
-      .jpeg({ quality: 100 })
-      .toFile(`images/products/logo/${req.body.logo}`);
+      .jpeg({ quality: 50 })
+      .toFile(`client/public/images/products/logo/${req.body.logo}`);
   }
 
   next();
@@ -46,7 +46,7 @@ exports.createBrand = catchAsync(async (req, res, next) => {
 exports.getAllBrands = catchAsync(async (req, res, next) => {
   const brands = await Brand.find();
 
-  res.status(201).json({
+  res.status(200).json({
     status: 'success',
     brands,
   });
@@ -60,7 +60,7 @@ exports.getBrand = catchAsync(async (req, res, next) => {
     return next(new AppError('Brands not found', 404));
   }
 
-  res.status(201).json({
+  res.status(200).json({
     status: 'success',
     brand,
   });

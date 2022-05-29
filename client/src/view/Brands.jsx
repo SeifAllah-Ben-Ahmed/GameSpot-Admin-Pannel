@@ -58,7 +58,7 @@ const Brands = () => {
                       <td>
                         <img
                           width="50"
-                          src={`${process.env.REACT_APP_BACKEND}/products/logo/${el.logo}`}
+                          src={`/images/products/logo/${el.logo}`}
                           alt={el.brand}
                         />
                       </td>

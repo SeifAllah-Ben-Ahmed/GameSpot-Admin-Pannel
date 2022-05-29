@@ -12,7 +12,7 @@ const EditeBrand = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getBrand(id));
+    return dispatch(getBrand(id));
   }, [dispatch, id]);
 
   const { brand } = useSelector((store) => store.product);
@@ -42,7 +42,7 @@ const EditeBrand = () => {
                 <div className="mb-3">
                   <ImageUpload
                     formik={formik}
-                    srcBase={`${process.env.REACT_APP_BACKEND}/products/logo`}
+                    srcBase={`/images/products/logo`}
                     name="logo"
                     label={'Brand Logo'}
                   />

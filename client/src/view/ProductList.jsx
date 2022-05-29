@@ -61,7 +61,7 @@ const ProductList = () => {
 
                     <td className="text-start">
                       <img
-                        src={`${process.env.REACT_APP_BACKEND}/products/${item.imageCover}`}
+                        src={`/images/products/${item.imageCover}`}
                         width="50"
                         alt={item.name}
                         className="me-2"

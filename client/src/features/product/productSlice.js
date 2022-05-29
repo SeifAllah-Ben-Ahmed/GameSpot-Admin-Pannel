@@ -25,6 +25,8 @@ const productSlice = createSlice({
     attribute: {},
     attributes: [],
     brand: {},
+    category: {},
+    categories: [],
 
     error: '',
   },
@@ -207,7 +209,7 @@ const productSlice = createSlice({
       state.isLoading = true;
       state.category = {};
     },
-    [getBrand.fulfilled]: (state, action) => {
+    [getCategory.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.category = action.payload.category;
       state.status = action.payload.status;
