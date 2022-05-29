@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import Loading from '../components/Loading';
 import { getProduct } from '../features/product/productApi';
 const ProductForm = lazy(() => import('../components/ProductForm'));
 // import ProductForm from '../components/ProductForm';
@@ -18,13 +19,7 @@ const AddProduct = () => {
   return (
     <main className="card">
       <div className="card-body">
-        <Suspense
-          fallback={
-            <div className="min-vh-100 w-100 d-flex justify-content-center align-items-center">
-              <span className="spinner-grow text-danger" role="status"></span>
-            </div>
-          }
-        >
+        <Suspense fallback={<Loading />}>
           {product.slug && <ProductForm product={product} />}
         </Suspense>
       </div>

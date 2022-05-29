@@ -79,13 +79,23 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 //   });
 // });
 
-exports.createUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not defined! please use /register instead',
+exports.createUser = catchAsync(async (req, res) => {
+  const { name, email, password, passwordConfirm, role } = req.body;
+  const user = await User.create({
+    name,
+    email,
+    password,
+    passwordConfirm,
+    role,
   });
-};
-
+  user.password = undefined;
+  res.status(201).json({
+    status: 'success',
+    data: {
+      user,
+    },
+  });
+});
 exports.getMe = (req, res, next) => {
   req.params.id = req.user._id;
   next();

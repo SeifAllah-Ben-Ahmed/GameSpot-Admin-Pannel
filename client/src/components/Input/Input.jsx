@@ -1,4 +1,5 @@
 import { ErrorMessage, Field, useField } from 'formik';
+import React from 'react';
 
 const Input = ({ ...props }) => {
   const [field, meta] = useField(props);
@@ -25,4 +26,4 @@ const Input = ({ ...props }) => {
   );
 };
 
-export default Input;
+export default React.memo(Input);

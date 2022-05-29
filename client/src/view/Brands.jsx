@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import BrandForm from '../components/BrandForm/BrandForm';
+import Loading from '../components/Loading';
 import { deleteBrand, getBrands } from '../features/product/productApi';
 
 const Brands = () => {
@@ -14,7 +15,11 @@ const Brands = () => {
     dispatch(getBrands());
   }, [dispatch]);
 
-  const { brands } = useSelector((store) => store.product);
+  const { brands, isLoading } = useSelector((store) => store.product);
+
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <main>
       <div className="card">

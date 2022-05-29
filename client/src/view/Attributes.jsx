@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AttributeForm from '../components/AttributeForm/AttributeForm';
+import Loading from '../components/Loading';
 import { deleteAttribute, getAttributes } from '../features/product/productApi';
 
 const Attributes = () => {
   const dispatch = useDispatch();
-  const { attributes } = useSelector((store) => store.product);
+  const { attributes, isLoading } = useSelector((store) => store.product);
 
   const handleDelete = (id) => {
     dispatch(deleteAttribute(id));
@@ -15,7 +16,9 @@ const Attributes = () => {
   useEffect(() => {
     dispatch(getAttributes());
   }, [dispatch]);
-
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <main>
       <div className="card">

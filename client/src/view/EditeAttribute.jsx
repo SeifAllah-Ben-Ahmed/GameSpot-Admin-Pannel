@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Input from '../components/Input';
+import Loading from '../components/Loading';
 import TagsInput from '../components/TagsInput';
 import { getAttribute, updateAttribute } from '../features/product/productApi';
 import { attributeSchema } from '../models/product';
@@ -15,17 +16,19 @@ const EditeAttribute = () => {
     dispatch(getAttribute(id));
   }, [dispatch, id]);
 
-  const { attribute } = useSelector((store) => store.product);
+  const { attribute, isLoading } = useSelector((store) => store.product);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="card">
       <div className="card-body">
         {attribute._id && (
           <Formik
-            onSubmit={async (values, actions) => {
-              console.log(values);
-              await dispatch(updateAttribute(values));
-              actions.resetForm();
+            onSubmit={(values, actions) => {
+              dispatch(updateAttribute(values));
             }}
             initialValues={attribute}
             validationSchema={attributeSchema}

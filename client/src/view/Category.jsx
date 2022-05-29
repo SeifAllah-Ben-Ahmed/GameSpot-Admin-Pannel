@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CategoryForm from '../components/CategoryForm';
+import Loading from '../components/Loading';
 import { deleteCategory, getCategories } from '../features/product/productApi';
 
 const Category = () => {
@@ -9,12 +10,15 @@ const Category = () => {
   const handleDelete = (id) => {
     dispatch(deleteCategory(id));
   };
+  const { categories, isLoading } = useSelector((store) => store.product);
 
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
 
-  const { categories } = useSelector((store) => store.product);
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <main>
       <div className="card">
@@ -91,4 +95,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default React.memo(Category);

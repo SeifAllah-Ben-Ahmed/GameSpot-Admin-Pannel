@@ -6,6 +6,7 @@ import ImageUpload from '../components/ImageUpload';
 import Input from '../components/Input';
 import { getBrand, updateBrand } from '../features/product/productApi';
 import { brandSchema } from '../models/product';
+import Loading from '../components/Loading';
 
 const EditeBrand = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,11 @@ const EditeBrand = () => {
     return dispatch(getBrand(id));
   }, [dispatch, id]);
 
-  const { brand } = useSelector((store) => store.product);
+  const { brand, isLoading } = useSelector((store) => store.product);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="card">

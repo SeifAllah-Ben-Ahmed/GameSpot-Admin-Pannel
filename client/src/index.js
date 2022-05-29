@@ -7,7 +7,6 @@ import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './theme/style.scss';
 import { Provider } from 'react-redux';
 import { store } from './features';
-import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>

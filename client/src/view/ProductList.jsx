@@ -9,8 +9,8 @@ const ProductList = () => {
   const { products } = useSelector((store) => store.product);
 
   const handleDelete = async (slug) => {
-    await dispatch(deleteProduct(slug));
-    await dispatch(getProducts());
+    dispatch(deleteProduct(slug));
+    dispatch(getProducts());
   };
 
   useEffect(() => {

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { rejectedMessage } from '../../utils/apiMessage';
 import { currentUser, login, logout } from './authApi';
 
 const authSlice = createSlice({
@@ -18,7 +19,10 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.status = action.payload.status;
       state.user = action.payload.data.user;
-      state.isAuth = state.user.role === process.env.REACT_APP_ROLE;
+      state.isAuth =
+        state.user.role === process.env.REACT_APP_ROLE
+          ? true
+          : rejectedMessage('warn', 'You are not allowed to access') && false;
     },
     [login.rejected]: (state, action) => {
       state.isLoading = false;

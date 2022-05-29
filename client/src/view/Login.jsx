@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
+import Loading from '../components/Loading';
 import { login } from '../features/auth/authApi';
 import { authSchema } from '../models/auth';
 
@@ -13,7 +14,7 @@ const Login = () => {
   };
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isAuth } = useSelector((store) => store.auth);
+  const { isAuth, isLoading } = useSelector((store) => store.auth);
 
   isAuth && navigate('/', { replace: true });
 
@@ -44,7 +45,7 @@ const Login = () => {
             </div>
 
             <button className="w-100 btn btn-lg btn-danger" type="submit">
-              Sign in
+              {isLoading ? <Loading btn /> : 'Sign in'}
             </button>
           </main>
         </Form>

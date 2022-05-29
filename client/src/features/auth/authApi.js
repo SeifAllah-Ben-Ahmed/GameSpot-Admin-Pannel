@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
 import instance from '../instance';
+import { rejectedMessage } from '../../utils/apiMessage';
 
 export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
   try {
@@ -8,10 +8,7 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
     return thunkAPI.fulfillWithValue(resp.data);
   } catch (error) {
     const { message, status } = error.response.data;
-    toast[status === 'fail' ? 'warn' : 'error'](message, {
-      position: 'bottom-right',
-      autoClose: 5000,
-    });
+    rejectedMessage(status, message);
     return thunkAPI.rejectWithValue({ message, status });
   }
 });
@@ -22,10 +19,7 @@ export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     return thunkAPI.fulfillWithValue(resp.data);
   } catch (error) {
     const { message, status } = error.response.data;
-    toast[status === 'fail' ? 'warn' : 'error'](message, {
-      position: 'bottom-right',
-      autoClose: 5000,
-    });
+    rejectedMessage(status, message);
     return thunkAPI.rejectWithValue({ message, status });
   }
 });
@@ -38,10 +32,7 @@ export const currentUser = createAsyncThunk(
       return thunkAPI.fulfillWithValue(resp.data);
     } catch (error) {
       const { message, status } = error.response.data;
-      toast[status === 'fail' ? 'warn' : 'error'](message, {
-        position: 'bottom-right',
-        autoClose: 5000,
-      });
+      rejectedMessage(status, message);
       return thunkAPI.rejectWithValue({ message, status });
     }
   }

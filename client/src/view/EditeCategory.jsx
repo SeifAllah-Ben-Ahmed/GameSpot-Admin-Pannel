@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import CategorySelect from '../components/CategorySelect';
 import Input from '../components/Input';
+import Loading from '../components/Loading';
 import { getCategory, updateCategory } from '../features/product/productApi';
 import { categorySchema } from '../models/product';
 
@@ -15,7 +16,11 @@ const EditeCategory = () => {
     dispatch(getCategory(id));
   }, [dispatch, id]);
 
-  const { category } = useSelector((store) => store.product);
+  const { category, isLoading } = useSelector((store) => store.product);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="card">
@@ -25,7 +30,7 @@ const EditeCategory = () => {
             onSubmit={(values, actions) => {
               dispatch(updateCategory(values));
             }}
-            initialValues={category}
+            initialValues={{ ...category, parent: category.parent?._id }}
             validationSchema={categorySchema}
           >
             {(formik) => (

@@ -1,13 +1,7 @@
 import { ErrorMessage, Field, useField } from 'formik';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getCategories } from '../../features/product/productApi';
+import { useSelector } from 'react-redux';
 
 const CategorySelect = (props) => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getCategories());
-  }, [dispatch]);
   const { categories } = useSelector((store) => store.product);
 
   const [field, meta] = useField({ ...props });

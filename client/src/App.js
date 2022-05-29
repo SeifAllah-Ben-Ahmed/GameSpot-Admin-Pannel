@@ -2,9 +2,12 @@ import { lazy, Suspense, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import Loading from './components/Loading';
 
 import { currentUser } from './features/auth/authApi';
 
+const AddUser = lazy(() => import('./view/AddUser'));
+const UserList = lazy(() => import('./view/UserList'));
 const Category = lazy(() => import('./view/Category'));
 const EditeAttribute = lazy(() => import('./view/EditeAttribute'));
 const EditeBrand = lazy(() => import('./view/EditeBrand'));
@@ -17,6 +20,7 @@ const EditeProduct = lazy(() => import('./view/EditeProduct'));
 const Attributes = lazy(() => import('./view/Attributes'));
 const Brands = lazy(() => import('./view/Brands'));
 const NotImplemented = lazy(() => import('./view/NotImplemented'));
+const User = lazy(() => import('./view/User'));
 const Login = lazy(() => import('./view/Login'));
 
 function App() {
@@ -29,13 +33,7 @@ function App() {
   return (
     <BrowserRouter>
       <ToastContainer />
-      <Suspense
-        fallback={
-          <div className="min-vh-100 w-100 d-flex justify-content-center align-items-center">
-            <span className="spinner-grow text-danger" role="status"></span>
-          </div>
-        }
-      >
+      <Suspense fallback={<Loading />}>
         <Layout>
           <Routes>
             <Route path="/login" element={<Login />} />
@@ -59,8 +57,9 @@ function App() {
               </Route>
             </Route>
             <Route path="/user">
-              <Route index element={<NotImplemented />} />
-              <Route path="add" element={<NotImplemented />} />
+              <Route index element={<UserList />} />
+              <Route path="add" element={<AddUser />} />
+              <Route path=":id" element={<User />} />
             </Route>
             <Route path="/order">
               <Route index element={<NotImplemented />} />
