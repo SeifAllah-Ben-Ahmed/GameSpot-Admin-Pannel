@@ -5,7 +5,9 @@ import { ToastContainer } from 'react-toastify';
 import Loading from './components/Loading';
 
 import { currentUser } from './features/auth/authApi';
+import Order from './view/Order';
 
+const EditeOrder = lazy(() => import('./view/EditeOrder'));
 const AddUser = lazy(() => import('./view/AddUser'));
 const UserList = lazy(() => import('./view/UserList'));
 const Category = lazy(() => import('./view/Category'));
@@ -62,7 +64,8 @@ function App() {
               <Route path=":id" element={<User />} />
             </Route>
             <Route path="/order">
-              <Route index element={<NotImplemented />} />
+              <Route index element={<Order />} />
+              <Route path=":id" element={<EditeOrder />} />
               <Route path="add" element={<NotImplemented />} />
             </Route>
             <Route path="/stats">

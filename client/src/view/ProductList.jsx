@@ -16,6 +16,7 @@ const ProductList = () => {
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
+
   return (
     <main className="card">
       <div className="card-body">

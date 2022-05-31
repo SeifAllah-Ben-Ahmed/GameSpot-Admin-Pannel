@@ -2,6 +2,73 @@ const Order = require('../models/orderModel');
 const AppError = require('../utils/AppError');
 const catchAsync = require('../utils/catchAsync');
 
+exports.getMeOrder = (req, res, next) => {
+  req.user.email = req.params.email;
+  next();
+};
+
+exports.getUserOrders = catchAsync(async (req, res, next) => {
+  const { email } = req.user;
+
+  const orders = await Order.find({ 'userInfo.email': email });
+
+  res.status(200).json({
+    status: 'success',
+    result: orders.length,
+    data: {
+      orders,
+    },
+  });
+});
+
+exports.userOrders = catchAsync(async (req, res, next) => {
+  const { email } = req.params;
+
+  const orders = await Order.find({ 'userInfo.email': email });
+
+  res.status(200).json({
+    status: 'success',
+    result: orders.length,
+    data: {
+      orders,
+    },
+  });
+});
+
+exports.getUserOrder = catchAsync(async (req, res, next) => {
+  const { email } = req.user;
+  const { _id } = req.params;
+
+  const order = await Order.findOne({ _id, 'userInfo.email': email });
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      order,
+    },
+  });
+});
+
+exports.cancelUserOrder = catchAsync(async (req, res, next) => {
+  const { email } = req.user;
+  const { _id } = req.params;
+
+  const order = await Order.updateOne(
+    { _id, 'userInfo.email': email },
+    {
+      $set: { status: 'Canceled' },
+    },
+    { new: true, runValidators: true }
+  );
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      order,
+    },
+  });
+});
+
 exports.getAllOrders = catchAsync(async (req, res, next) => {
   const orders = await Order.find();
 

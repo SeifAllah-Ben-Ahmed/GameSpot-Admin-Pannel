@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { rejectedMessage, resolvedMessage } from '../../utils/apiMessage';
 import instance from '../instance';
+import { userOrders } from '../order/orderApi';
 
 export const getUsers = createAsyncThunk(
   'user/getUsers',
@@ -51,7 +52,7 @@ export const getUser = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const resp = await instance.get(`/api/users/${id}`);
-
+      thunkAPI.dispatch(userOrders(resp.data.data.user.email));
       return resp.data;
     } catch (error) {
       const { message, status } = error.response.data;

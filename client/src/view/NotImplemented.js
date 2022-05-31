@@ -8,7 +8,9 @@ const NotImplemented = () => {
         className="card-body  d-flex flex-column justify-content-center"
       >
         <h2 className="text-center text-danger">⚒⚒🛠⛏</h2>
-        <h1 className="text-center text-light">not yet implemented</h1>
+        <h1 className="text-center text-light">
+          Page not found or not yet implemented
+        </h1>
         <h2 className="text-center text-danger">⚒⚒🛠⛏</h2>
       </div>
     </main>
