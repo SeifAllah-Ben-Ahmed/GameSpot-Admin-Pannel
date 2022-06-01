@@ -1,4 +1,5 @@
 require('dotenv').config({ path: './config.env' });
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -23,6 +24,14 @@ app.enable('trust proxy');
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
 const port = process.env.PORT || 5000;
 
 // DataBase Connection
@@ -81,7 +90,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/attributes', attributeRoutes);
 
 // Handle 404 not found routes
-app.all('*', (req, res, next) => {
+app.all('/*', (req, res, next) => {
   next(
     new AppError(
       `Cant find this route ('${req.originalUrl}') on thus server!`,
