@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import Loading from '../components/Loading';
 import { getProduct } from '../features/product/productApi';
 const ProductForm = lazy(() => import('../components/ProductForm'));
-// import ProductForm from '../components/ProductForm';
 
 const AddProduct = () => {
   const { slug } = useParams();

@@ -1,4 +1,10 @@
-import { getOrder, getOrders, userOrders } from './orderApi';
+import {
+  getOrder,
+  getOrders,
+  orderStats,
+  userOrders,
+  yearlySales,
+} from './orderApi';
 
 const { createSlice } = require('@reduxjs/toolkit');
 
@@ -9,6 +15,7 @@ const orderSlice = createSlice({
     orders: [],
     userOrders: [],
     order: {},
+    stats: [],
   },
 
   extraReducers: {
@@ -50,6 +57,32 @@ const orderSlice = createSlice({
       state.status = action.payload.status;
     },
     [getOrder.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload.message;
+      state.status = action.payload.status;
+    },
+    [orderStats.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [orderStats.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.stats = action.payload.data.orders;
+      state.status = action.payload.status;
+    },
+    [orderStats.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload.message;
+      state.status = action.payload.status;
+    },
+    [yearlySales.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [yearlySales.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.yearlySales = action.payload.data.orders;
+      state.status = action.payload.status;
+    },
+    [yearlySales.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload.message;
       state.status = action.payload.status;

@@ -7,37 +7,24 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-const data = [
-  {
-    name: 'Jan',
-    uv: 4000,
-  },
-  {
-    name: 'Feb',
-    uv: 3000,
-  },
-  {
-    name: 'Mar',
-    uv: 2000,
-  },
-  {
-    name: 'Apr',
-    uv: 2780,
-  },
-  {
-    name: 'Mai',
-    uv: 1890,
-  },
-  {
-    name: 'Jun',
-    uv: 2390,
-  },
-  {
-    name: 'Jull',
-    uv: 3490,
-  },
+
+const month = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'Mai',
+  'Jun',
+  'Jull',
+  'Aug',
+  'Sept',
+  'Oct',
+  'Nov',
+  'Dec',
 ];
-const ChartArea = () => {
+
+const ChartArea = ({ data }) => {
+  const dataFormat = data?.map((el) => ({ ...el, month: month[el.month - 1] }));
   return (
     <div className="card mt-2">
       <div className="card-body">
@@ -45,7 +32,7 @@ const ChartArea = () => {
         <div style={{ height: '400px' }}>
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart
-              data={data}
+              data={dataFormat}
               margin={{
                 top: 15,
                 right: 30,
@@ -54,12 +41,12 @@ const ChartArea = () => {
               }}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
+              <XAxis dataKey="month" />
               <YAxis />
               <Tooltip />
               <Area
                 type="monotone"
-                dataKey="uv"
+                dataKey="number"
                 stroke="#8884d8"
                 fill="#dc3545"
               />

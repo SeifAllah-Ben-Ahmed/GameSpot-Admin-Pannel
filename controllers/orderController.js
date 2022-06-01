@@ -70,7 +70,7 @@ exports.cancelUserOrder = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllOrders = catchAsync(async (req, res, next) => {
-  const orders = await Order.find();
+  const orders = await Order.find().sort({ createdAt: -1 });
 
   res.status(200).json({
     status: 'success',
@@ -133,5 +133,59 @@ exports.deleteOrder = catchAsync(async (req, res, next) => {
   res.status(204).json({
     status: 'success',
     data: null,
+  });
+});
+
+exports.statusStats = catchAsync(async (req, res, next) => {
+  const orders = await Order.aggregate([
+    {
+      $group: {
+        _id: '$status',
+        name: { $first: '$status' },
+        value: { $sum: 1 },
+      },
+    },
+  ]);
+  res.status(200).json({
+    status: 'success',
+    data: {
+      orders,
+    },
+  });
+});
+
+exports.getYearlyStats = catchAsync(async (req, res, next) => {
+  const year = new Date(Date.now()).getFullYear();
+
+  const orders = await Order.aggregate([
+    {
+      $match: {
+        createdAt: {
+          $gte: new Date(`${year}-01-01`),
+          $lte: new Date(`${year}-12-31`),
+        },
+      },
+    },
+    {
+      $group: {
+        _id: { $month: '$createdAt' },
+        number: { $sum: 1 },
+        user: { $first: '$userInfo.email' },
+        total: { $sum: '$total' },
+      },
+    },
+    {
+      $addFields: { month: '$_id' },
+    },
+
+    {
+      $sort: { month: 1 },
+    },
+  ]);
+  res.status(200).json({
+    status: 'success',
+    data: {
+      orders,
+    },
   });
 });

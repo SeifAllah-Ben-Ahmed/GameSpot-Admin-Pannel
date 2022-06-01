@@ -15,7 +15,7 @@ const orderSchema = new mongoose.Schema(
           required: [true, 'Please Include the product price'],
         },
         quantity: {
-          type: String,
+          type: Number,
           required: true,
         },
       },
@@ -67,7 +67,7 @@ const orderSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['Pending', 'In progress', 'Completed', 'Canceled', 'Refunded'],
+      enum: ['Pending', 'In progress', 'Completed', 'Canceled'],
       default: 'Pending',
     },
   },

@@ -2,11 +2,10 @@ import { lazy, Suspense, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { currentUser } from './features/auth/authApi';
 import Loading from './components/Loading';
 
-import { currentUser } from './features/auth/authApi';
-import Order from './view/Order';
-
+const Order = lazy(() => import('./view/Order'));
 const EditeOrder = lazy(() => import('./view/EditeOrder'));
 const AddUser = lazy(() => import('./view/AddUser'));
 const UserList = lazy(() => import('./view/UserList'));
@@ -21,7 +20,7 @@ const ProductList = lazy(() => import('./view/ProductList'));
 const EditeProduct = lazy(() => import('./view/EditeProduct'));
 const Attributes = lazy(() => import('./view/Attributes'));
 const Brands = lazy(() => import('./view/Brands'));
-const NotImplemented = lazy(() => import('./view/NotImplemented'));
+const NotFound = lazy(() => import('./view/NotFound'));
 const User = lazy(() => import('./view/User'));
 const Login = lazy(() => import('./view/Login'));
 
@@ -66,13 +65,8 @@ function App() {
             <Route path="/order">
               <Route index element={<Order />} />
               <Route path=":id" element={<EditeOrder />} />
-              <Route path="add" element={<NotImplemented />} />
             </Route>
-            <Route path="/stats">
-              <Route path="product" element={<NotImplemented />} />
-              <Route path="user" element={<NotImplemented />} />
-              <Route path="order" element={<NotImplemented />} />
-            </Route>
+            <Route path="/*" element={<NotFound />} />
           </Routes>
         </Layout>
       </Suspense>

@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
+import { orderStats } from '../../features/order/orderApi';
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
@@ -26,14 +29,18 @@ const renderCustomizedLabel = ({
     </text>
   );
 };
-const data = [
-  { name: 'Order Pending', value: 400 },
-  { name: 'Order Canceled', value: 300 },
-  { name: 'Order Shipped', value: 300 },
-];
-const COLORS = ['#FF8042', '#dc3545', '#00c49f'];
+const COLORS = {
+  Pending: '#FF8042',
+  Canceled: '#dc3545',
+  Completed: '#00c49f',
+};
 
 const ChartPie = () => {
+  const dispatch = useDispatch();
+  const { stats } = useSelector((store) => store.order);
+  useEffect(() => {
+    dispatch(orderStats());
+  }, [dispatch]);
   return (
     <div className="card">
       <div className="card-body">
@@ -41,7 +48,7 @@ const ChartPie = () => {
 
         <PieChart width={450} height={250}>
           <Pie
-            data={data}
+            data={stats}
             cx={100}
             cy={100}
             labelLine={true}
@@ -50,11 +57,8 @@ const ChartPie = () => {
             fill="#8884d8"
             dataKey="value"
           >
-            {data.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
+            {stats.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[entry.name]} />
             ))}
           </Pie>
           <Tooltip />

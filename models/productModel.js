@@ -27,16 +27,11 @@ const productSchema = new mongoose.Schema(
       type: Number,
       validate: {
         validator: function (val) {
-          // This only points to current doc on NEW document creation
           return Number(val) <= Number(this.price);
         },
         message: 'Discount price ({VALUE}) should be below the regular price',
       },
     },
-    // shortDescription: {
-    //   type: [String],
-    //   required: [true, 'A product must have a description'],
-    // },
     description: {
       type: Object,
     },
@@ -112,20 +107,12 @@ productSchema.pre('save', function (next) {
   next();
 });
 
-// QUERY MIDDLEWARE: runs before all the commandes that start with find => .find() .findOne() ....
-// productSchema.pre(/^find/, function (next) {
-//   this.find({ secretTour: { $ne: true } });
-//   this.start = Date.now();
-//   next();
-// });
-
 productSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'category subCategory brand',
     select: '-__v',
   });
-  // this.select('-__v');
-  // this.populate(['followers', 'following']);
+
   next();
 });
 

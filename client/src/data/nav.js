@@ -45,27 +45,6 @@ export const nav = [
         sub: 'List Orders',
         to: '/order',
       },
-      {
-        sub: 'Create Order',
-        to: '/order/add',
-      },
-    ],
-  },
-  {
-    title: 'Statistics',
-    subTitles: [
-      {
-        sub: 'Products Stats',
-        to: '/stats/product',
-      },
-      {
-        sub: 'Users Stats',
-        to: '/stats/user',
-      },
-      {
-        sub: 'Orders Stats',
-        to: '/stats/order',
-      },
     ],
   },
 ];

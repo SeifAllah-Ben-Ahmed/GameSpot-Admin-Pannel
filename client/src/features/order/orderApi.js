@@ -103,7 +103,35 @@ export const editeOrder = createAsyncThunk(
         order.values
       );
       resolvedMessage('Order was successfully Updated');
-      // thunkAPI.dispatch(getOrder());
+      return thunkAPI.fulfillWithValue(resp.data);
+    } catch (error) {
+      const { message, status } = error.response.data;
+      rejectedMessage(status, message);
+      return thunkAPI.rejectWithValue({ message, status });
+    }
+  }
+);
+
+export const orderStats = createAsyncThunk(
+  'order/orderStats',
+  async (_, thunkAPI) => {
+    try {
+      const resp = await instance.get(`/api/orders/status`);
+
+      return thunkAPI.fulfillWithValue(resp.data);
+    } catch (error) {
+      const { message, status } = error.response.data;
+      rejectedMessage(status, message);
+      return thunkAPI.rejectWithValue({ message, status });
+    }
+  }
+);
+export const yearlySales = createAsyncThunk(
+  'order/yearlySales',
+  async (_, thunkAPI) => {
+    try {
+      const resp = await instance.get(`/api/orders/yearly-sales`);
+
       return thunkAPI.fulfillWithValue(resp.data);
     } catch (error) {
       const { message, status } = error.response.data;

@@ -7,11 +7,8 @@ export const userSchema = Yup.object().shape({
   passwordConfirm: Yup.string()
     .required('User Password Confirm is Required')
     .test({
-      // exclusive: false,
-      // params: {},
       message: 'Password Confirm and password does not match',
       test: function (value) {
-        // You can access the price field with `this.parent`.
         return value === this.parent.password;
       },
     }),

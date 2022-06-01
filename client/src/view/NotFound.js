@@ -1,6 +1,4 @@
-import React from 'react';
-
-const NotImplemented = () => {
+const NotFound = () => {
   return (
     <main className="card bg-danger">
       <div
@@ -9,7 +7,7 @@ const NotImplemented = () => {
       >
         <h2 className="text-center text-danger">⚒⚒🛠⛏</h2>
         <h1 className="text-center text-light">
-          Page not found or not yet implemented
+          Page not found <strong>404</strong>
         </h1>
         <h2 className="text-center text-danger">⚒⚒🛠⛏</h2>
       </div>
@@ -17,4 +15,4 @@ const NotImplemented = () => {
   );
 };
 
-export default NotImplemented;
+export default NotFound;

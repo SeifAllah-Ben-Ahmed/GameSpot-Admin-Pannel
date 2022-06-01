@@ -20,6 +20,9 @@ router
 router.use(authController.restrictTo('admin'));
 
 router.route('/').get(orderController.getAllOrders);
+router.route('/status').get(orderController.statusStats);
+router.route('/yearly-sales').get(orderController.getYearlyStats);
+
 router.route('/user/:email').get(orderController.userOrders);
 
 router
