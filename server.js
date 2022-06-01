@@ -25,23 +25,8 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/'));
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
-}
-
-const port = process.env.PORT || 5000;
-
 // DataBase Connection
-
 connectDB();
-
-app.listen(port, (err) => {
-  if (err) return console.log(err, '💥💥');
-  console.log(`App running on port ${port}... 🚀🚀`);
-});
 
 // 1) MIDDLEWARES
 //Body & Cookie parser, reading data from body
@@ -88,6 +73,20 @@ app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/attributes', attributeRoutes);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
+const port = process.env.PORT || 5000;
+
+app.listen(port, (err) => {
+  if (err) return console.log(err, '💥💥');
+  console.log(`App running on port ${port}... 🚀🚀`);
+});
 
 // Handle 404 not found routes
 app.all('/*', (req, res, next) => {
