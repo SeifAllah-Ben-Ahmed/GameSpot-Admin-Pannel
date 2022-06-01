@@ -7,7 +7,7 @@
     "start": "node server.js",
     "start:dev": "nodemon index.js",
     "start:prod": "SET NODE_ENV=production& nodemon index.js",
-    "heroku:build": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "repository": {
     "type": "git",
