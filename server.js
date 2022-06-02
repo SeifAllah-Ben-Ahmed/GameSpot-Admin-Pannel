@@ -66,9 +66,6 @@ app.use(compression());
 
 // 2) ROUTE HANDLERS
 
-app.get('/', (req, res) => {
-  res.status(200).end();
-});
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
