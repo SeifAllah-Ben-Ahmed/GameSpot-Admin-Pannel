@@ -35,12 +35,12 @@ exports.resizeProductImages = catchAsync(async (req, res, next) => {
 
   // 1) imageCover
   if (req.files && req.files.imageCover) {
-    req.body.imageCover = `product-${req.body.name}-default.jpeg`;
+    req.body.imageCover = `product-${req.body.name}-default.webp`;
 
     await sharp(req.files.imageCover[0].buffer)
       .resize(512, 512)
-      .toFormat('jpeg')
-      .jpeg({ quality: 100 })
+      .toFormat('webp')
+      .webp({ lossless: true })
       .toFile(`client/public/images/products/${req.body.imageCover}`);
   }
   // 2) images

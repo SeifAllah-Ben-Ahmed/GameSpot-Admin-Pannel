@@ -19,7 +19,7 @@ const ProductForm = ({ product }) => {
   const initialValues = {
     name: '',
     price: '',
-    priceDiscount: '',
+    priceDiscount: 0,
     SKU: '',
     published: false,
     IsFeatured: false,
@@ -31,6 +31,7 @@ const ProductForm = ({ product }) => {
     description: '',
     brand: '',
     category: '',
+    subCategory: '',
   };
 
   const dispatch = useDispatch();
@@ -102,6 +103,7 @@ const ProductForm = ({ product }) => {
               type="text"
             />
           </div>
+
           <div className="mb-3">
             <FieldArray name="attributes">
               {({ push, remove, form }) => {

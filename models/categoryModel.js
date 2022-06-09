@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 const categorySchema = mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    required: [true, 'A Category name is required'],
     trim: true,
     lowercase: true,
-    unique: [true, 'A Category name must be unique'],
+    // unique: [true, 'A Category name must be unique'],
   },
 
   parent: {
@@ -14,6 +14,13 @@ const categorySchema = mongoose.Schema({
     ref: 'Category',
     required: false,
   },
+});
+
+categorySchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'parent',
+  });
+  next();
 });
 
 const Category = mongoose.model('Category', categorySchema);

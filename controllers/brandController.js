@@ -22,12 +22,12 @@ exports.uploadLogo = upload.single('logo');
 
 exports.resizeLogo = catchAsync(async (req, res, next) => {
   if (req.file) {
-    req.body.logo = `logo-${req.body.brand}.jpeg`;
+    req.body.logo = `logo-${req.body.brand}.webp`;
 
     await sharp(req.file.buffer)
-      .resize({ height: 100 })
-      .toFormat('jpeg')
-      .jpeg({ quality: 50 })
+      .resize({ height: 150 })
+      .toFormat('webp')
+      .webp({ lossless: true })
       .toFile(`client/public/images/products/logo/${req.body.logo}`);
   }
 

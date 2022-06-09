@@ -16,7 +16,7 @@ exports.createCategory = catchAsync(async (req, res, next) => {
 exports.getAllCategories = catchAsync(async (req, res, next) => {
   const categories = await Category.find().populate('parent');
 
-  res.status(201).json({
+  res.status(200).json({
     status: 'success',
     categories,
   });
@@ -30,7 +30,7 @@ exports.getCategory = catchAsync(async (req, res, next) => {
     return next(new AppError('categorys not found', 404));
   }
 
-  res.status(201).json({
+  res.status(200).json({
     status: 'success',
     category,
   });

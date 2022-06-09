@@ -9,9 +9,7 @@ const RichEditor = ({ name, formik }) => {
   const [content, setContent] = useState(
     (formik.initialValues[name] &&
       EditorState.createWithContent(
-        convertFromRaw(
-          formik.initialValues[name] && JSON.parse(formik.initialValues[name])
-        )
+        convertFromRaw(JSON.parse(formik.initialValues[name]))
       )) ||
       EditorState.createEmpty()
   );

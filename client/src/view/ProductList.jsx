@@ -10,7 +10,6 @@ const ProductList = () => {
 
   const handleDelete = async (slug) => {
     dispatch(deleteProduct(slug));
-    dispatch(getProducts());
   };
 
   useEffect(() => {
@@ -27,13 +26,13 @@ const ProductList = () => {
                 <th scope="col" width="5%">
                   SKU
                 </th>
-                <th scope="col" width="25%">
+                <th scope="col" width="30%">
                   Name
                 </th>
                 <th scope="col" width="10%">
                   Status
                 </th>
-                <th scope="col" className="text-end" width="20%">
+                <th scope="col" className="text-end" width="10%">
                   Price
                 </th>
                 <th scope="col" className="text-end" width="15%">
