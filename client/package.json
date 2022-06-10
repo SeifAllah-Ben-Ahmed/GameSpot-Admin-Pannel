@@ -47,9 +47,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "serve": "^13.0.2"
-  },
-  "proxy": "https://stormy-scrubland-71913.herokuapp.com/"
+  }
 }
