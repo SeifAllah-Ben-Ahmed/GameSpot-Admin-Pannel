@@ -47,7 +47,11 @@ app.use(
 app.use(mongoSanitier());
 
 // Set security HTTP headers
-app.use(helmet());
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false,
+  })
+);
 
 // Limite request
 app.use(
